@@ -1,0 +1,14 @@
+node('kaniko') {    
+     stage ('clone') {
+        sh "git config --global http.sslVerify false"
+        sh "git clone https://github.com/edwin/hello-world-dot-net-core /tmp/source "
+    }
+
+    stage ('build') {        
+        sh '''
+        /kaniko/executor  --context /tmp/source  --dockerfile /tmp/source/Dockerfile \
+            --destination default-route-openshift-image-registry.apps-crc.testing/cicd/hello-world-dot-net-core-kaniko:${BUILD_NUMBER} \ 
+            --skip-tls-verify  --ignore-path=/usr/bin/newuidmap --ignore-path=/usr/bin/newgidmap 
+        '''        
+    }
+}
