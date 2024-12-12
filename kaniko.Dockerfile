@@ -1,6 +1,6 @@
 FROM gcr.io/kaniko-project/executor:v1.7.0-debug AS kaniko
 
-FROM registry.redhat.io/openshift4/ose-jenkins-agent-base:latest
+FROM jenkins/inbound-agent:3273.v4cfe589b_fd83-1
 USER root
 
 COPY --from=kaniko /kaniko/executor /kaniko/executor
