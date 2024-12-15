@@ -9,4 +9,7 @@ RUN curl https://github.com/rancher/cli/releases/download/v2.10.1-rc.1/rancher-l
 RUN tar -xf /tmp/rancher-linux-amd64-v2.10.1-rc.1.tar.gz -C /tmp &&  mv /tmp/rancher*/rancher /tmp/rancher && ln -s /tmp/rancher /usr/bin/rancher
 RUN rancher --version
 
+RUN curl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -o /tmp/kubectl -L  && ls -alrth /tmp  && chmod +x /tmp/kubectl  && ln -s /tmp/kubectl /usr/bin/kubectl
+RUN kubectl version --client
+
 USER 127
